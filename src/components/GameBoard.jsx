@@ -6,7 +6,7 @@ const initialBoard = [
     [null, null, null]
 ];
 
-export default function GameBoard() {
+export default function GameBoard({ onSelectSquare, activePlayerSymbol }) {
     const [gameBoard, setGameBoard] = useState(initialBoard);
 
     function handleSelectPosition(rowIndex, colIndex) {
@@ -14,9 +14,11 @@ export default function GameBoard() {
             // create an immutable copy of the board with the spread operator
             // add the contents of the nested arrays with .map()
             const updatedBoard = [...prevBoard.map((innerArrays) => [...innerArrays])]
-            updatedBoard[rowIndex][colIndex] = "X";
+            updatedBoard[rowIndex][colIndex] = activePlayerSymbol;
             return updatedBoard;
         });
+
+        onSelectSquare();
 };
 
     return <ol id="game-board">
