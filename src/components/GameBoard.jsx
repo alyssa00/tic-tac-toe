@@ -45,7 +45,10 @@ export default function GameBoard({ onSelectSquare, turns }) {
                             onSelectSquare prop calls handleSelectPosition()
                         
                         */}
-                        <button onClick={() => onSelectSquare(rowIndex, colIndex)}>
+                        <button 
+                            onClick={() => onSelectSquare(rowIndex, colIndex)}
+                            disabled={playerSymbol !== null} // if null button is selectable
+                        >
                             {playerSymbol}
                         </button>
                     </li>)}

@@ -3,20 +3,30 @@ import { useState } from 'react';
 import Player from './components/Player.jsx'
 import GameBoard from './components/GameBoard.jsx'
 import Log from './components/Log.jsx'
+import { WINNING_COMBINATIONS } from './winning-combinations.js';
+
+function getActivePlayer(gameTurn){
+  let currentPlayer = 'X';
+
+  // check who the current player is
+  if( gameTurn.length > 0 && gameTurn[0].player === 'X'){
+    currentPlayer = 'O';
+  }
+
+  return currentPlayer;
+}
 
 function App() {
   const [gameTurn, setGameTurn] = useState([]);
-  const [activePlayer, setActivePlayer] = useState('X');
+  
+  // derive state from a function instead of managing the state 
+  const activePlayer = getActivePlayer(gameTurn);
+  // const [activePlayer, setActivePlayer] = useState('X');
 
   function handleSelectPosition(rowIndex, colIndex) {
-    setActivePlayer((curActivePlayer) => curActivePlayer === 'X' ? 'O' : 'X');
+    // setActivePlayer((curActivePlayer) => curActivePlayer === 'X' ? 'O' : 'X');
     setGameTurn((prevTurns) => {
-      let currentPlayer = 'X';
-
-      // check who the current player is
-      if( prevTurns.length > 0 && prevTurns[0].player === 'X'){
-        currentPlayer = 'O';
-      }
+      const currentPlayer = getActivePlayer(prevTurns);
       // create an updated turn based on the current selection and previous turn array
       const updatedTurn = [
         { square: { row: rowIndex, col: colIndex }, player: currentPlayer }, 
