@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Player({initialName, symbol, isActive}) {
+export default function Player({initialName, symbol, isActive, onNameChange}) {
     const [ playerName, setPlayerName ] = useState(initialName);
     const [ editing, setEditing ] = useState(false);
 
@@ -12,6 +12,10 @@ export default function Player({initialName, symbol, isActive}) {
     // set the state to the opposite of the previous state when clicking 'Edit' or 'Save'
     function handleEdit() {
         setEditing((edit) => !edit);
+
+        if (editing){
+            onNameChange(symbol, playerName)
+        }
     }; 
 
     let editedPlayerName = <span className="player-name">{playerName}</span>;
