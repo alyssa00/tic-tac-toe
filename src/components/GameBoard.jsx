@@ -1,25 +1,9 @@
 // Sets the gameboard with values passed through props from App.jsx
 // The board is updated based on the current users button click.
 
-const initialBoard = [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null]
-];
-
-export default function GameBoard({ onSelectSquare, turns }) {
-    let gameBoard = initialBoard;
-
-    // for each turn update the game board at the correct indeces 
-    // with the current player symbol
-    for (const turn of turns) { 
-        const {square, player} = turn;
-        const {row, col} = square;
-        
-        gameBoard[row][col] = player;
-    }
-
-    // NOTE: Below code is replaced by above code to derive board state from the props
+export default function GameBoard({ onSelectSquare, board }) {
+   
+    // NOTE: Below code is replaced by state of the board passed from App.jsx
     // const [gameBoard, setGameBoard] = useState(initialBoard);
 
     // function handleSelectPosition(rowIndex, colIndex) {
@@ -35,7 +19,7 @@ export default function GameBoard({ onSelectSquare, turns }) {
     // };
 
     return <ol id="game-board">
-        {gameBoard.map((row, rowIndex) => <li key={rowIndex}>
+        {board.map((row, rowIndex) => <li key={rowIndex}>
             <ol>
                 {row.map((playerSymbol, colIndex) =>
                     <li key={colIndex}>
